@@ -42,8 +42,8 @@ const PhoneList = () => {
             <div>
                 {data && (
                 <>
-                    {data.celulares.map((celulares) => (
-                     <Phone key={celularesid} celulares={celulares} />
+                    {data.celulares.map((celular) => (
+                     <Phone key={celular.id} celular={celular} />
                  ))}
                 </>
             )}

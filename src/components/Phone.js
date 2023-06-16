@@ -1,12 +1,12 @@
 import React from 'react';
 
 const Phone = (props) => {
-  const { phone } = props;
+  const { celular } = props;
   return (
     <div className="card mt-3" style={{ width: "18rem" }}>
       <div className="card-body">
-        <h3 className="card-title">{celulares.version}</h3>
-        <h5 className="card-subtitle mb-2 text-body-secondary"><b> {celulares.¿¿¿???} </b></h5>
+        <h3 className="card-title">{celular.version}</h3>
+        <h5 className="card-subtitle mb-2 text-body-secondary"><b> {celular.Phone} </b></h5>
           <p className="card-text">
             <b>Descripción: </b> {celular.descripcion}
           </p> 

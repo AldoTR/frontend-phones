@@ -7,7 +7,7 @@ const CREATE_ATTRIBUTE_MUTATION = gql`
     $descripcion: String!
     $marca: String!
     $precio: Integer!
-    $tamano String!
+    $tamano: String!
     $sistema: String!
     $fecha: String!
     $color: String!
@@ -30,7 +30,7 @@ const CREATE_ATTRIBUTE_MUTATION = gql`
   }
 `;
 
-const CreateAttribute = () => {
+const CreatePhone = () => {
   const [formState, setFormState] = useState({
     id:'',
     version: '',
@@ -42,10 +42,10 @@ const CreateAttribute = () => {
     fecha: '',
     color: '',
     cpu: '',
-    memoria: ",
+    memoria: '',
   });
 
-  const [CreateAttribute] = useMutation(CREATE_ATTRIBUTE_MUTATION, {
+  const [CreatePhone] = useMutation(CREATE_ATTRIBUTE_MUTATION, {
     variables: {
       version: formState.version,
       descripcion: formState.descripcion,
@@ -53,7 +53,7 @@ const CreateAttribute = () => {
       precio: formState.precio,
       tamano: formState.tamano,
       sistema: formState.sistema,
-      fecha formState.fecha,
+      fecha: formState.fecha,
       color: formState.color,
       cpu: formState.cpu,
       memoria: formState.memoria,
@@ -68,7 +68,7 @@ const CreateAttribute = () => {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          CreateAttribute();
+          CreatePhone();
         }}
       >
         <div className="flex flex-column mb2">

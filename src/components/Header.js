@@ -9,7 +9,7 @@ const Header = () => {
         className="navbar-brand" 
         to="/"
     >
-        Phones
+        API Phones
     </Link>
 
     <div className="navbar-collapse">
