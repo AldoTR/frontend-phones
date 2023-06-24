@@ -49,7 +49,7 @@ const Login = () => {
       password: formState.password
     },
     onCompleted: ({ tokenAuth }) => {
-      console.log(tokenAuth.token);
+      console.log(tokenAuth);
       localStorage.setItem(AUTH_TOKEN, tokenAuth.token);
       navigate('/');
     }

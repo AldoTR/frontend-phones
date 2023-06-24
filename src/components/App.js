@@ -7,6 +7,8 @@ import CreatePhone from './CreatePhone';
 import Login from "./Login";
 import Search from "./Search";
 import Openai from "./openai";
+import Images from "./images-davinci";
+import Text from "./text-davinci-003";
 
 const Home = () => {
   return (
@@ -17,7 +19,7 @@ const Home = () => {
   );
 };
 
-const App = () => {
+function App (){
   return (
     <div>
       <Header />
@@ -31,6 +33,6 @@ const App = () => {
       </Routes>
     </div>
   );
-};
+  };
 
 export default App;

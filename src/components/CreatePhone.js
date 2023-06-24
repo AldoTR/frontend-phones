@@ -1,20 +1,22 @@
 import React, { useState } from 'react';
 import { useMutation, gql } from '@apollo/client';
+import { AUTH_TOKEN } from './constants';
+import { useNavigate } from 'react-router-dom';
 
 const CREATE_ATTRIBUTE_MUTATION = gql`
   mutation PostMutation(
-    $version: String!
-    $descripcion: String!
-    $marca: String!
-    $precio: Integer!
-    $tamano: String!
-    $sistema: String!
-    $fecha: String!
-    $color: String!
-    $cpu: String!
+    $version: String!,
+    $descripcion: String!,
+    $marca: String!,
+    $precio: Float!,
+    $tamano: String!,
+    $sistema: String!,
+    $fecha: String!,
+    $color: String!,
+    $cpu: String!,
     $memoria: String!
   ) {
-    createAttribute(version:$version,descripcion:$descripcion,marca:$marca,precio:$precio,tamano:$tamano,sistema:$sistema,fecha:$fecha,color:$cpu,memoria:$memoria) {
+    createCelular(version:$version,descripcion:$descripcion,marca:$marca,precio:$precio,tamano:$tamano,sistema:$sistema,fecha:$fecha,color:$color,cpu:$cpu,memoria:$memoria) {
         id 
         version
         descripcion
@@ -31,12 +33,12 @@ const CREATE_ATTRIBUTE_MUTATION = gql`
 `;
 
 const CreatePhone = () => {
+  const navigate = useNavigate();
   const [formState, setFormState] = useState({
-    id:'',
     version: '',
     descripcion: '',
     marca: '',
-    precio:'',
+    precio: 0,
     tamano: '',
     sistema: '',
     fecha: '',
@@ -45,7 +47,13 @@ const CreatePhone = () => {
     memoria: '',
   });
 
+  const authToken = localStorage.getItem(AUTH_TOKEN);
   const [CreatePhone] = useMutation(CREATE_ATTRIBUTE_MUTATION, {
+    context: {
+      headers: {
+        Authorization: `Bearer ${authToken}`
+      }
+    },
     variables: {
       version: formState.version,
       descripcion: formState.descripcion,
@@ -57,7 +65,8 @@ const CreatePhone = () => {
       color: formState.color,
       cpu: formState.cpu,
       memoria: formState.memoria,
-    }
+    },
+    onCompleted: () => navigate('/')
 
     
   });

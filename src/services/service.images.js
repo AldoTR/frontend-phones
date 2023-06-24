@@ -1,17 +1,22 @@
 import { Configuration, OpenAIApi } from "openai";
 
-class CreateImages {
+class ServiceImage003 {
 
-    async getImage(data) {
-        const configuration = new Configuration({
-            apiKey: "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"
-        });
-
-        const openai = new OpenAIApi(configuration);
-        console.log(configuration);
-        console.log(data.animal);
+  async getDaVinci(data) {
+    const configuration = new Configuration({
+        apiKey: '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',
+      });
+    const openai = new OpenAIApi(configuration);
+    console.log(configuration);
+    console.log(data.animal);
     if (!configuration.apiKey) {
-
+        /*
+        res.status(500).json({
+          error: {
+            message: "OpenAI API key not configured, please follow instructions in README.md",
+          }
+        });
+        */
         return {
             status:500,
             error: {
@@ -21,9 +26,14 @@ class CreateImages {
       }
     
       const animal = data.animal || '';
-      const number = Math.floor(data.n) || 1;
       if (animal.trim().length === 0) {
-
+        /*
+        res.status(400).json({
+          error: {
+            message: "Please enter a valid animal",
+          }
+        });
+        */
         return {
             status:400,
             error: {
@@ -34,16 +44,14 @@ class CreateImages {
     
       try {
         const completion = await openai.createImage({
-          prompt: this.generatePrompt(animal),
-          n: number,
-          size: "512x512",
+          prompt: `${data.animal}`,
+          n: 2,
+          size: "1024x1024",
         });
-        const images =completion.data.data;
-        const urls =images.map((image) => image.url);
-
+        // res.status(200).json({ result: completion.data.choices[0].text });
         return {
             status: 200,
-            result: urls
+            result: completion.data.data[0].url
         }
       } catch(error) {
         // Consider adjusting the error handling logic for your use case
@@ -55,7 +63,13 @@ class CreateImages {
           }
         } else {
           console.error(`Error with OpenAI API request: ${error.message}`);
-
+          /*
+          res.status(500).json({
+            error: {
+              message: 'An error occurred during your request.',
+            }
+          });
+          */
          return {
             status: 500,
             error: {
@@ -64,27 +78,11 @@ class CreateImages {
          }
         }
       }
-    //return ;
   }
 
-  generatePrompt(animal, number) {
-    const capitalizedAnimal =
-      animal[0].toUpperCase() + animal.slice(1).toLowerCase();
-    return `Suggest three names for ${capitalizedAnimal} phone.
-  
-  Phone: ${capitalizedAnimal} iPhone
-  Names: Marca (Apple), Sistema (iOS), Tamaño (Grande)
-  
-  Phone: ${capitalizedAnimal} Samsung
-  Names: Marca (Samsung), Sistema (Android), Tamaño (Estándar)
-  
-  Phone: ${capitalizedAnimal} Xiaomi
-  Names: Marca (Xiaomi), Sistema (MIUI), Tamaño (Mediano)
-  
-  Instrument: ${capitalizedAnimal}
-  Names:`;
-  }
-  
+    generatePrompt(text) {
+        return `Generate an image based on the following text:${text}`;
+    }
 }
-const instance = new CreateImages();
-export default instance;
+const serviceImage003= new ServiceImage003();
+export default serviceImage003;

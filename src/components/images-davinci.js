@@ -1,16 +1,26 @@
 import { useState } from "react";
-import CreateImages from "../services/service.images";
+//import styles from "./text-davinci-003.css";
+import ServiceImage003 from "../services/service.images";
+import { useTranslation } from "react-i18next";
 
-export default function ImageGeneration() {
-    const [animalInput, setAnimalInput] = useState("");
-    const [result, setResult] = useState();
-    const [numberOfImages, setNumberOfImages] = useState(1)
 
-  async function onSubmit(event) {
+export default function Textdavinci003() {
+  const [animalInput, setAnimalInput] = useState("");
+  const [result, setResult] = useState();
+  const { t } = useTranslation();
+
+
+  async function onSubmit(event) {  
     event.preventDefault();
     try {
-      const response = await CreateImages.getImage({ animal: animalInput , n: numberOfImages});
-
+      const response = await ServiceImage003.getDaVinci({ animal: animalInput });
+      /*const response = await fetch("/text-davinci-003/generate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ animal: animalInput }),
+      });*/
 
       const data = await response;
       console.log(response);
@@ -20,44 +30,31 @@ export default function ImageGeneration() {
       console.log("response", response);
       setResult(data.result);
       setAnimalInput("");
-    } catch(error) {
+    } catch (error) {
+      // Consider implementing your own error handling logic here
       console.error(error);
       alert(error.message);
     }
   }
 
-    return (
+  return (
+    <div>
+      <h3>{t("imagen")}</h3>
+      <form onSubmit={onSubmit}>
+        <input
+          type="text"
+          name="animal"
+          placeholder="Enter a text to generate image"
+          value={animalInput}
+          onChange={(e) => setAnimalInput(e.target.value)}
+        />
+        <input type="submit" value="Generate image" />
+      </form>
+      {result && result2 && (
         <div>
-        <title>OpenAI Quickstart</title>
-        <link rel="icon" href="/dog.png" />
-
-      <main>
-        <img src="" alt=""/>
-        <h3>Name an celular</h3>
-        <form onSubmit={onSubmit}>
-          <input
-            type="text"
-            name="animal"
-            placeholder="Enter an celular"
-            value={animalInput}
-            onChange={(e) => setAnimalInput(e.target.value)}
-          />
-          <input
-            type="number"
-            name="number"
-            placeholder="Enter a number de images"
-            value={numberOfImages}
-            onChange={(e) => setNumberOfImages(e.target.value)}
-          />
-          <input type="submit" value="Generate images" />
-        </form>
-        <div>
-          {result && result.map((url) => (
-            <img src={url} key={url} alt="Imagen" />
-          ))}
+          <img className="img-generator" alt="generada" src={result} />
         </div>
-        {/* <div><img src={result} alt=""></img> </div> */}
-      </main>
+      )}
     </div>
   );
 }
