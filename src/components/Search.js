@@ -46,7 +46,7 @@ const Filter = () => {
             <p className='resultado'>Result: {prompt.result}</p>
             <p className='resultado'>Fecha: {prompt.fecha}</p>
             <p className='resultado'>Modelo: {prompt.modelo}</p>
-            <p className='resultado'>PromptBy: {prompt.postedBy.username}</p>
+            <p className='resultado'>PostedBy: {prompt.postedBy.username}</p>
           </div>
         ))}
       </div >
