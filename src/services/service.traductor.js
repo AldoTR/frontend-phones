@@ -2,8 +2,10 @@ import { Configuration, OpenAIApi } from "openai";
 
 class Traductor {
     async getTraduccion(data) {
+        const key= process.env.REACT_APP_OPENAI_KEY;
         const configuration = new Configuration({
-            apiKey: "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",
+        
+        apiKey: "sk-"+key,
         });
         const openai = new OpenAIApi(configuration);
         console.log(configuration);
@@ -42,7 +44,9 @@ class Traductor {
             // res.status(200).json({ result: completion.data.choices[0].text });
             return {
                 status: 200,
-                result: completion.data.choices[0].text
+                result: completion.data.choices[0].text,
+                model: "text-davinci-003",
+                prompt: `Translate this into 1. French, 2. English and 3. Japanese: ${data.animal}`,
             }
         } catch (error) {
             // Consider adjusting the error handling logic for your use case
@@ -69,7 +73,7 @@ class Traductor {
     generatePrompt(animal) {
         const capitalizedAnimal =
             animal[0].toUpperCase() + animal.slice(1).toLowerCase();
-        return `Translate this into 1. French, 2. Spanish and 3. Japanese:\n
+        return `Translate this into 1. French, 2. English and 3. Japanese:\n
             
             ${capitalizedAnimal}\n
             Traduccion:`;

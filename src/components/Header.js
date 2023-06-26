@@ -1,85 +1,70 @@
 import React from 'react';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AUTH_TOKEN } from './constants';
+import { useTranslation } from "react-i18next";
+import LanguageSelect from "./LanguageSelect";
+import MenuDropdown from "./openai"
 
 const Header = () => {
     const authToken = localStorage.getItem(AUTH_TOKEN);
     const navigate = useNavigate();
-  return (
-    <nav className="navbar navbar-expand-sm navbar-dark bg-dark p-2">
-            
-    <Link 
-        className="navbar-brand" 
-        to="/"
-    >
-        API Phones
-    </Link>
-
-    <div className="navbar-collapse">
-        <div className="navbar-nav">
-
-            <NavLink 
-                className={ ({isActive}) => `nav-item nav-link  ${ isActive ? 'active':'' }` }
+    const { t } = useTranslation();
+    return (
+        <div className="flex pa1 justify-between nowrap orange">
+            <div className="flex flex-fixed black">
+                <Link to="/" className="no-underline black">
+                    <div className="fw7 mr1">Phones</div>
+                </Link>
+                <Link to="/" className="ml1 no-underline black">
+                API Phones
+                </Link>
+                <div className="ml1">|</div>
+                <Link
                 to="/create"
-            >
-                Crear
-            </NavLink>
+                className="ml1 no-underline black"
+                >
+                {t('crear')}
+                </Link>
+                <div className="ml1">|</div>
+                <MenuDropdown/>
+                <div className="ml1">|</div>
+                <Link to="/search" className="ml1 no-underline black" >
+                {t('buscar')}
+                </Link>
+                <div className="ml1">|</div>
+                <div className="flex flex-fixed">
+                    <div className="ml1 pointer black">
+                        {t('language')}
+                    </div>
+                    <div className="ml1 pointer black"> : </div>
+                    <div>
+                        <LanguageSelect className="ml1 pointer black" />
+                    </div>
+                </div>
 
-            <NavLink 
-                className={ ({isActive}) => `nav-item nav-link  ${ isActive ? 'active':'' }` }
-                to="/"
-            >
-                Celulares
-            </NavLink>
-
-                      {authToken ? (
-                          <div
-                              className="ml1 pointer black"
-                              onClick={() => {
-                                  localStorage.removeItem(AUTH_TOKEN);
-                                  navigate(`/`);
-                              }}
-                          >
-                              Logout
-                          </div>
-                      ) : (
-                          <Link
-                              to="/login"
-                              className="ml1 no-underline black"
-                          >
-                              Login
-                          </Link>
-                      )}
-           
+            </div>
+            <div className="flex flex-fixed">
+                {authToken ? (
+                <div
+                    className="ml1 pointer black"
+                    onClick={() => {
+                    localStorage.removeItem(AUTH_TOKEN);
+                    navigate(`/`);
+                    }}
+                >
+                    Logout
+                </div>
+                ) : (
+                <Link
+                    to="/login"
+                    className="ml1 no-underline black"
+                >
+                    Login
+                </Link>
+                )}
+            </div>
         </div>
-    </div>
-
-    <NavLink 
-                className={ ({isActive}) => `nav-item nav-link  ${ isActive ? 'active':'' }` }
-                to="/openai"
-            >
-                OpenAI
-            </NavLink>
-
-    <div className="navbar-collapse collapse w-100 order-3 dual-collapse2 d-flex justify-content-end">
-        <ul className="navbar-nav ml-auto">
-           
-            <span className="nav-item nav-link text-primary">
-                Aldo Torres Ramírez
-            </span>
-        </ul>
-    </div>
-</nav>
-    
-    
-
-
-
-
-
-
-    
-  );
+    );
 };
 
 export default Header;

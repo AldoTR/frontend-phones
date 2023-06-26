@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useMutation, gql } from '@apollo/client';
-import ServiceImage003 from "../services/service.images";
+import Traductor from "../services/service.traductor"
 import { useTranslation } from "react-i18next";
 import { AUTH_TOKEN } from './constants';
 
@@ -25,27 +25,16 @@ const CREATE_PROMPT_MUTATION = gql`
   }
 `;
 
-
 export default function Textdavinci003() {
   const [animalInput, setAnimalInput] = useState("");
   const [result, setResult] = useState();
-  const [result2, setResult2] = useState();
   const { t } = useTranslation();
-  const [createConsulta] = useMutation(CREATE_PROMPT_MUTATION);
-
+  const [createConsulta] = useMutation(CREATE_PROMPT_MUTATION); // Extraemos el hook useMutation
 
   async function onSubmit(event) {
     event.preventDefault();
     try {
-      const response = await ServiceImage003.getDaVinci({ animal: animalInput });
-      /*const response = await fetch("/text-davinci-003/generate", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ animal: animalInput }),
-      });*/
-
+      const response = await Traductor.getTraduccion({ animal: animalInput });
       const data = await response;
       console.log(response);
       if (response.status !== 200) {
@@ -53,9 +42,7 @@ export default function Textdavinci003() {
       }
       console.log("response", response);
       setResult(data.result);
-      setResult2(data.result2);
       setAnimalInput("");
-
       const authToken = localStorage.getItem(AUTH_TOKEN);
       const fecha = new Date().toISOString();
 
@@ -74,7 +61,6 @@ export default function Textdavinci003() {
         onCompleted: () => alert("Datos guardados exitosamente"),
       });
     } catch (error) {
-      // Consider implementing your own error handling logic here
       console.error(error);
       alert(error.message);
     }
@@ -82,24 +68,21 @@ export default function Textdavinci003() {
 
   return (
     <div className="container">
-      <h3 className="card-title">{t("imagen")}</h3>
+      <h3 className="card-title">{t('traductor')}</h3>
       <form onSubmit={onSubmit}>
         <input
           className="input-field"
           type="text"
           name="animal"
-          placeholder="Enter a text to generate image"
+          placeholder="Write the text to translate"
           value={animalInput}
           onChange={(e) => setAnimalInput(e.target.value)}
         />
-        <input className="pointer button" type="submit" value="Generate image" />
+        <input className="pointer button" type="submit" value="Translate" />
       </form>
-      {result && result2 && (
-        <div>
-          <img className="img-generator" alt="generada" src={result} />
-          <img className="img-generator" alt="generada2" src={result2} />
-        </div>
-      )}
+      <div>
+        <p className="textResult">Result: {result}</p>
+      </div>
     </div>
   );
 }

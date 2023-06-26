@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { useMutation, gql } from '@apollo/client';
-import ServiceImage003 from "../services/service.images";
+//import styles from "./text-davinci-003.css";
+import ServiceRecetas from "../services/service.receta"
 import { useTranslation } from "react-i18next";
+import { useMutation, gql } from '@apollo/client';
 import { AUTH_TOKEN } from './constants';
 
 const CREATE_PROMPT_MUTATION = gql`
@@ -25,19 +26,16 @@ const CREATE_PROMPT_MUTATION = gql`
   }
 `;
 
-
 export default function Textdavinci003() {
   const [animalInput, setAnimalInput] = useState("");
   const [result, setResult] = useState();
-  const [result2, setResult2] = useState();
   const { t } = useTranslation();
   const [createConsulta] = useMutation(CREATE_PROMPT_MUTATION);
-
 
   async function onSubmit(event) {
     event.preventDefault();
     try {
-      const response = await ServiceImage003.getDaVinci({ animal: animalInput });
+      const response = await ServiceRecetas.getReceta({ animal: animalInput });
       /*const response = await fetch("/text-davinci-003/generate", {
         method: "POST",
         headers: {
@@ -53,9 +51,7 @@ export default function Textdavinci003() {
       }
       console.log("response", response);
       setResult(data.result);
-      setResult2(data.result2);
       setAnimalInput("");
-
       const authToken = localStorage.getItem(AUTH_TOKEN);
       const fecha = new Date().toISOString();
 
@@ -73,7 +69,7 @@ export default function Textdavinci003() {
         },
         onCompleted: () => alert("Datos guardados exitosamente"),
       });
-    } catch (error) {
+    } catch(error) {
       // Consider implementing your own error handling logic here
       console.error(error);
       alert(error.message);
@@ -82,24 +78,21 @@ export default function Textdavinci003() {
 
   return (
     <div className="container">
-      <h3 className="card-title">{t("imagen")}</h3>
-      <form onSubmit={onSubmit}>
-        <input
-          className="input-field"
-          type="text"
-          name="animal"
-          placeholder="Enter a text to generate image"
-          value={animalInput}
-          onChange={(e) => setAnimalInput(e.target.value)}
-        />
-        <input className="pointer button" type="submit" value="Generate image" />
-      </form>
-      {result && result2 && (
+      <h3 className="card-title">{t('receta')}</h3>
+        <form onSubmit={onSubmit}>
+          <input
+            className="input-field"
+            type="text"
+            name="animal"
+            placeholder="Enter ingredients for a recipe"
+            value={animalInput}
+            onChange={(e) => setAnimalInput(e.target.value)}
+          />
+          <input className="pointer button" type="submit" value="Generate recipe" />
+        </form>
         <div>
-          <img className="img-generator" alt="generada" src={result} />
-          <img className="img-generator" alt="generada2" src={result2} />
+            <p className="textResult">Result: {result}</p>
         </div>
-      )}
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import "../styles/Inicio.css"
 import "../styles/Alumno.css"
+import PhoneList from './PhoneList';
 
 export const Imagen = () => {
   return (
@@ -10,7 +11,7 @@ export const Imagen = () => {
 
 export const Alumno = () => {
   return (
-    <div className="Alumno">
+    <div className="container">
       <div className="TarjetaFoto">
         <img src="./img/Yo1.jpg" alt="FotoPersonal" className="Foto"></img>
         <div className="Info">
@@ -19,9 +20,10 @@ export const Alumno = () => {
         </div>
       </div>
 
-      <div className="Contenido">
+      <div className="container">
         <p className="Titulo">API de celulares</p>
         <h1 className="Subtitulo">API de celulares</h1>
+        <PhoneList></PhoneList>
       </div>
     </div>
   );

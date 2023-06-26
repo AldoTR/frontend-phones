@@ -1,7 +1,7 @@
 import {React,useState} from 'react';
 import { Link } from 'react-router-dom';
 
-import { useTranslation } from "i18nextConf";
+import { useTranslation } from "react-i18next";
 
 const MenuDropdown = () => {
 
@@ -18,44 +18,44 @@ const MenuDropdown = () => {
   return (
     <div className="dropdown ml1">
           <div className="dropdown-btn" onClick={toggleDropdown}>
-          {t("Openia")}
+          {t("openia")}
           </div>
           {isDropdownOpen && (
             <div className="dropdown-content">
               <Link
-                to="/davinci"
+                to="/translate"
                 className="no-underline black"
                 onClick={closeDropdown}
               >
-                DaVinci
+                Traductor
               </Link>
               <Link
-                to="/image"
+                to="/imagen"
                 className="no-underline black"
                 onClick={closeDropdown}
               >
                 Imagen
               </Link>
               <Link
-                to="/consultas"
+                to="/emojis"
                 className="no-underline black"
                 onClick={closeDropdown}
               >
-                Consultas
+                Emojis
+              </Link>
+              <Link
+                to="/libros"
+                className="no-underline black"
+                onClick={closeDropdown}
+              >
+                Libros
               </Link>
               <Link
                 to="/correccion"
                 className="no-underline black"
                 onClick={closeDropdown}
               >
-                Correccion Texto
-              </Link>
-              <Link
-                to="/pelicula"
-                className="no-underline black"
-                onClick={closeDropdown}
-              >
-                Pelicula a Emoji
+                Correccion texto
               </Link>
               <Link
                 to="/receta"

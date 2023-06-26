@@ -3,9 +3,11 @@ import { Configuration, OpenAIApi } from "openai";
 class List {
 
   async getDaVinci(data) {
+    const key= process.env.REACT_APP_OPENAI_KEY;
     const configuration = new Configuration({
-        apiKey: "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",
-      });
+      
+      apiKey: "sk-"+key,
+    });
     const openai = new OpenAIApi(configuration);
     console.log(configuration);
     console.log(data.animal);
@@ -41,7 +43,9 @@ class List {
         });
         return {
             status: 200,
-            result: completion.data.choices[0].text
+            result: completion.data.choices[0].text,
+            model: "text-davinci-003",
+            prompt: `Give me 3 books about this topic : ${data.animal}`,
         }
       } catch(error) {
         if (error.response) {
@@ -64,10 +68,10 @@ class List {
   generatePrompt(animal) {
     const capitalizedAnimal =
       animal[0].toUpperCase() + animal.slice(1).toLowerCase();
-    return `Muestra 3 modelos de celular.\n
-  
-  Marca: ${capitalizedAnimal}\n
-  Nombres:`;
+    return `Give me 3 books about this topic :\n
+            
+    ${capitalizedAnimal}\n
+    Books:`;
   }
   
 }

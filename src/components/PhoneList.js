@@ -3,11 +3,11 @@ import Phone from './Phone';
 import { useQuery, gql } from '@apollo/client';
 
 const FEED_QUERY = gql`
-  {
+  query{
     celulares{
         id
         version
-        description
+        descripcion
         marca
         precio
         tamano
@@ -22,24 +22,11 @@ const FEED_QUERY = gql`
 ;
 
 const PhoneList = () => {
-//   const seriesToRender = [
-//     {
-//       id: 'link-id-1',
-//       description:
-//         'Prisma gives you a powerful database toolkit 😎',
-//       url: 'https://prisma.io'
-//     },
-//     {
-//       id: 'link-id-2',
-//       description: 'The best GraphQL client',
-//       url: 'https://www.apollographql.com/docs/react/'
-//     }
-//   ];
 
     const { data } = useQuery(FEED_QUERY);
 
         return (
-            <div>
+            <div className='container1'>
                 {data && (
                 <>
                     {data.celulares.map((celular) => (

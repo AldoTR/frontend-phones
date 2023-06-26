@@ -15,19 +15,30 @@ const CREATE_ATTRIBUTE_MUTATION = gql`
     $color: String!,
     $cpu: String!,
     $memoria: String!
-  ) {
-    createCelular(version:$version,descripcion:$descripcion,marca:$marca,precio:$precio,tamano:$tamano,sistema:$sistema,fecha:$fecha,color:$color,cpu:$cpu,memoria:$memoria) {
-        id 
-        version
-        descripcion
-        marca
-        precio
-        tamano
-        sistema
-        fecha
-        color
-        cpu
-        memoria 
+  ){
+    createCelular(
+      version: $version,
+      descripcion: $descripcion,
+      marca: $marca,
+      precio: $precio,
+      tamano: $tamano,
+      sistema: $sistema,
+      fecha: $fecha,
+      color: $color,
+      cpu: $cpu,
+      memoria: $memoria
+    ) {
+      id 
+      version
+      descripcion
+      marca
+      precio
+      tamano
+      sistema
+      fecha
+      color
+      cpu
+      memoria 
     }
   }
 `;
@@ -48,7 +59,7 @@ const CreatePhone = () => {
   });
 
   const authToken = localStorage.getItem(AUTH_TOKEN);
-  const [CreatePhone] = useMutation(CREATE_ATTRIBUTE_MUTATION, {
+  const [createPhone] = useMutation(CREATE_ATTRIBUTE_MUTATION, {
     context: {
       headers: {
         Authorization: `Bearer ${authToken}`
@@ -67,22 +78,20 @@ const CreatePhone = () => {
       memoria: formState.memoria,
     },
     onCompleted: () => navigate('/')
-
-    
   });
 
-
   return (
-    <div className='mb-3 mt-2 '>
+    <div className="container">
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          CreatePhone();
+          createPhone();
         }}
       >
-        <div className="flex flex-column mb2">
+        <div className="container">
+          <h3 className="card-title">Create new phone</h3>
           <input
-            className="form-label form-control mb-3 mt-3"
+            className="input-field"
             value={formState.version}
             onChange={(e) =>
               setFormState({
@@ -94,19 +103,19 @@ const CreatePhone = () => {
             placeholder="Versión"
           />
           <input
-            className="form-label form-control mb-3 mt-1"
-            value={formState.description}
+            className="input-field"
+            value={formState.descripcion}
             onChange={(e) =>
               setFormState({
                 ...formState,
-                description: e.target.value
+                descripcion: e.target.value
               })
             }
             type="text"
             placeholder="Descripción"
           />
            <input
-            className="form-label form-control mb-3 mt-1"
+            className="input-field"
             value={formState.marca}
             onChange={(e) =>
               setFormState({
@@ -118,7 +127,7 @@ const CreatePhone = () => {
             placeholder="Marca"
           />
            <input
-            className="form-label form-control mb-3 mt-1"
+            className="input-field"
             value={formState.precio}
             onChange={(e) =>
               setFormState({
@@ -130,7 +139,7 @@ const CreatePhone = () => {
             placeholder="Precio"
           />
            <input
-            className="form-label form-control mb-3 mt-1"
+            className="input-field"
             value={formState.tamano}
             onChange={(e) =>
               setFormState({
@@ -142,7 +151,7 @@ const CreatePhone = () => {
             placeholder="Tamaño"
           />
            <input
-            className="form-label form-control mb-3 mt-1"
+            className="input-field"
             value={formState.sistema}
             onChange={(e) =>
               setFormState({
@@ -154,7 +163,7 @@ const CreatePhone = () => {
             placeholder="Sistema"
           />
            <input
-            className="form-label form-control mb-3 mt-1"
+            className="input-field"
             value={formState.fecha}
             onChange={(e) =>
               setFormState({
@@ -166,7 +175,7 @@ const CreatePhone = () => {
             placeholder="Año de lanzamiento"
           />
            <input
-            className="form-label form-control mb-3 mt-1"
+            className="input-field"
             value={formState.color}
             onChange={(e) =>
               setFormState({
@@ -178,7 +187,7 @@ const CreatePhone = () => {
             placeholder="Color"
           />
            <input
-            className="form-label form-control mb-3 mt-1"
+            className="input-field"
             value={formState.cpu}
             onChange={(e) =>
               setFormState({
@@ -190,7 +199,7 @@ const CreatePhone = () => {
             placeholder="Gigabytes de CPU"
           />
            <input
-            className="form-label form-control mb-3 mt-1"
+            className="input-field"
             value={formState.memoria}
             onChange={(e) =>
               setFormState({
@@ -201,9 +210,8 @@ const CreatePhone = () => {
             type="text"
             placeholder="Gigabytes de memoria"
           />
-          
+          <button type="submit" className="pointer button">Agregar</button>
         </div >
-        <button type="submit" className='btn btn-primary  btn-lg'>Agregar</button>
       </form>
     </div>
     

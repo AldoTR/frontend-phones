@@ -3,9 +3,11 @@ import { Configuration, OpenAIApi } from "openai";
 class ServiceDavinci003 {
 
   async getDaVinci(data) {
+    const key= process.env.REACT_APP_OPENAI_KEY;
     const configuration = new Configuration({
-        apiKey: "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",
-      });
+      
+      apiKey: "sk-"+key,
+    });
     const openai = new OpenAIApi(configuration);
     console.log(configuration);
     console.log(data.animal);
@@ -36,7 +38,9 @@ class ServiceDavinci003 {
         });
         return {
             status: 200,
-            result: completion.data.choices[0].text
+            result: completion.data.choices[0].text,
+            model: "text-davinci-003",
+            prompt: `Correct the text: ${data.animal}`,
         }
       } catch(error) {
         if (error.response) {
@@ -59,10 +63,12 @@ class ServiceDavinci003 {
   generatePrompt(animal) {
     const capitalizedAnimal =
       animal[0].toUpperCase() + animal.slice(1).toLowerCase();
-    return `Suggest three models of a cellphome.\n
+    return `Correct the text.\n
+    aprasaba: abrazaba
+    correpsion: corrección
   
-  Phone: ${capitalizedAnimal}\n
-  Names:`;
+    Text: ${capitalizedAnimal}\n
+    Names:`;
   }
   
 }

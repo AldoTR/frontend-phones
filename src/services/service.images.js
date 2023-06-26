@@ -3,9 +3,11 @@ import { Configuration, OpenAIApi } from "openai";
 class ServiceImage003 {
 
   async getDaVinci(data) {
+    const key= process.env.REACT_APP_OPENAI_KEY;
     const configuration = new Configuration({
-        apiKey: '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',
-      });
+      
+      apiKey: "sk-"+key,
+    });
     const openai = new OpenAIApi(configuration);
     console.log(configuration);
     console.log(data.animal);
@@ -51,7 +53,10 @@ class ServiceImage003 {
         // res.status(200).json({ result: completion.data.choices[0].text });
         return {
             status: 200,
-            result: completion.data.data[0].url
+            result: completion.data.data[0].url,
+            result2: completion.data.data[1].url,
+            model: "Dall-E",
+            prompt: `Generate an image based on the following text:${data.animal}`,
         }
       } catch(error) {
         // Consider adjusting the error handling logic for your use case
