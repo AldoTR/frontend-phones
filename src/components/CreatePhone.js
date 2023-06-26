@@ -89,7 +89,7 @@ const CreatePhone = () => {
         }}
       >
         <div className="container">
-          <h3 className="card-title">Create new phone</h3>
+          <h3 className="card-title2">Create new phone</h3>
           <input
             className="input-field"
             value={formState.version}

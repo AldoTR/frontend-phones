@@ -72,7 +72,7 @@ export default function Textdavinci003() {
 
   return (
     <div className="container">
-      <h3 className="card-title">{t('correct')}</h3>
+      <h3 className="card-title2">{t('correct')}</h3>
         <form onSubmit={onSubmit}>
           <input
             className="input-field"

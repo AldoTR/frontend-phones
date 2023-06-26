@@ -23,7 +23,7 @@ const Filter = () => {
   return (
     <>
       <div className="container">
-      <h3 className="card-title">Search</h3>
+      <h3 className="card-title2">Search</h3>
         <input
           className="input-field"
           type="text"
