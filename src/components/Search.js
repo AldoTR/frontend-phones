@@ -38,10 +38,10 @@ const Filter = () => {
         >
           OK
         </button>
-      </div>
-      {data &&
+        {data &&
         data.consultas.map((prompt) => (
-          <div key={prompt.id}>
+          <div className="container2" key={prompt.id}>
+            <h3 className="card-title">{prompt.id}</h3>
             <p className='resultado'>Prompt: {prompt.prompt}</p>
             <p className='resultado'>Result: {prompt.result}</p>
             <p className='resultado'>Fecha: {prompt.fecha}</p>
@@ -49,6 +49,8 @@ const Filter = () => {
             <p className='resultado'>PromptBy: {prompt.postedBy.username}</p>
           </div>
         ))}
+      </div >
+      
     </>
   );
 };
